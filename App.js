@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import connect from "./config/database.js"
 import bcrypt from "bcryptjs"
 import userRoutes from "./Routes/userRoutes.js"
-import product from "./Routes/product"
+import productRoutes from "./Routes/productRoutes.js"
 import { errorHandler } from "./middleware/ErrorHandler.js"
 
 // Initialize app
@@ -20,7 +20,7 @@ app.use(express.json())
 
 // Routes
 app.use("/api/users", userRoutes)
-app.use("api/product", product)
+app.use("/api/products", productRoutes)
 // Error handling middleware
 app.use(errorHandler)
 
