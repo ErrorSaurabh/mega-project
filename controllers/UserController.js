@@ -1,3 +1,4 @@
+// Import the user object from the user.js module
 import User from "../model/User.js"
 import bcrypt from "bcryptjs"
 import asyncHandler from "express-async-handler"
