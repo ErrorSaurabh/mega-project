@@ -1,53 +1,68 @@
 // Import the product object from the product.js module
+import asyncHandler from "express-async-handler";
 import { Product } from "../model/Product.js";
 
-import asyncHandler from "express-async-handler";
-import jwt  from "jsonwebtoken";
-
+// Create a new product
 export const createProduct = asyncHandler(async (req, res) => {
-  const { name, price, description } = req.body; // Destructure the request body to get the product details
+  const { name, price, description } = req.body;
   const product = await Product.create({
     name,
     price,
-    description
-  })
+    description,
+  });
   return res.status(201).json({
     msg: "Product created successfully",
-    data: product
+    data: product,
     // token
-  })
-
+  });
 });
-export const product = (req, res) => {
-  
-    const response = { message: 'Product created successfully' };
-  res.status(201).json(response);
-};
 
 // Get all products
 export const getProducts = asyncHandler(async (req, res) => {
   try {
-    // Find all products in the database
     const products = await Product.find({});
-
-    // Send a response with the products array
     res.status(200).json(products);
   } catch (error) {
-    // Handle any errors that occur during the retrieval of the products
     res.status(500).json({ message: error.message });
   }
 });
-// const token = req.headers.authorization.split(" ")[1];
-  // if (!token) {
-  //   return res.status(401).json({ message: 'No token provided' });
-  // }
-  // jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    
-  //   if (err) {
-  //     return res.status(401).json({ message: 'Invalid token' });
-  //   }else{
-  //     console.log(decoded)
-  //     req.userId = decoded.userId;
-  //   }
 
-  // });
+// Get a product by id
+export const getProductById = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    res.status(200).json(product);
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
+// Update a product
+export const updateProduct = asyncHandler(async (req, res) => {
+  const { name, price, description } = req.body;
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    product.name = name || product.name;
+    product.price = price || product.price;
+    product.description = description || product.description;
+
+    const updatedProduct = await product.save();
+    res.status(200).json({
+      msg: "Product updated successfully",
+      data: updatedProduct,
+    });
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
+// Delete a product
+export const deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    await product.remove();
+    res.status(200).json({ message: "Product deleted successfully" });
+  } else {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
