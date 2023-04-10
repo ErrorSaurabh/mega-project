@@ -7,6 +7,11 @@ export const createcategory = async (req, res) => {
     // Extract the name, user, and image properties from the request object
     const { name, user, image, products } = req.body;
 
+    // Check if the name is in uppercase
+    if (name !== name.toLowerCase()) {
+      return res.status(400).json({ message: "Category name should be in lowercase" });
+    }
+
     // Create a new category object using the extracted properties
     const newCategory = new Category({
       name,

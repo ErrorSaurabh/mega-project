@@ -24,6 +24,19 @@ export const product = (req, res) => {
   res.status(201).json(response);
 };
 
+// Get all products
+export const getProducts = asyncHandler(async (req, res) => {
+  try {
+    // Find all products in the database
+    const products = await Product.find({});
+
+    // Send a response with the products array
+    res.status(200).json(products);
+  } catch (error) {
+    // Handle any errors that occur during the retrieval of the products
+    res.status(500).json({ message: error.message });
+  }
+});
 // const token = req.headers.authorization.split(" ")[1];
   // if (!token) {
   //   return res.status(401).json({ message: 'No token provided' });
