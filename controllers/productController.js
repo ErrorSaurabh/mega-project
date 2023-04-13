@@ -4,11 +4,19 @@ import { Product } from "../model/Product.js";
 
 // Create a new product
 export const createProduct = asyncHandler(async (req, res) => {
-  const { name, price, description } = req.body;
+  const { name, price, description, brand, category, sizes, color, images, reviews, totalQuantity, totalSold} = req.body;
   const product = await Product.create({
     name,
     price,
     description,
+    brand,
+    category,
+    sizes,
+    color,
+    images,
+    reviews,
+    totalQuantity,
+    totalSold
   });
   return res.status(201).json({
     msg: "Product created successfully",
@@ -16,7 +24,6 @@ export const createProduct = asyncHandler(async (req, res) => {
     // token
   });
 });
-
 
 // export const getProducts = asyncHandler(async (req, res) => {
 //   try {
