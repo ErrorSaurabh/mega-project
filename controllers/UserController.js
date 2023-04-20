@@ -29,6 +29,8 @@ export const Register = async (req, res) => {
     // token
   })
 }
+// API
+// http://localhost:1000/api/users/register
 
 export const Login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -55,6 +57,8 @@ const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     token:token
   })
 })
+// API
+// http://localhost:1000/api/users/login
 
 
 

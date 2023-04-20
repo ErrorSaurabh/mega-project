@@ -16,13 +16,13 @@ router.post('/create', isLogin, createProduct);
 // READ: GET request to get all brands
 router.get("/read", getProducts);
 
-// READ: GET request to get a brand by ID
+// READ: GET request to get a product by ID
 router.get("/read/:id", getProductById);
 
-// UPDATE: PUT request to update a brand by ID
+// UPDATE: PUT request to update a product by ID
 router.put("/update/:id", updateProduct);
 
-// DELETE: DELETE request to delete a brand by ID
+// DELETE: DELETE request to delete a product by ID
 router.delete("/delete/:id", deleteProduct);
 
 export default router;
