@@ -135,9 +135,8 @@ export const updateProduct = asyncHandler(async (req, res) => {
 // Delete a product
 export const deleteProduct = asyncHandler(async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      await product.remove();
+    const product = await Product.deleteOne({ _id: req.params.id });
+    if (product.deletedCount === 1) {
       res.status(200).json({ message: "Product deleted successfully" });
     } else {
       res.status(404).json({ message: "Product not found" });
@@ -146,22 +145,6 @@ export const deleteProduct = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
-// export const deleteProduct = asyncHandler(async (req, res) => {
-//   try {
-//     const user = req.user;
-//     const product = await Product.findById(req.params.id);
-//     if (product) {
-//       if (product.user.toString() === user._id.toString()) {
-//         await product.remove();
-//         res.status(200).json({ message: "Product deleted successfully" });
-//       } else {
-//         res.status(403).json({ message: "Unauthorized to delete this product" });
-//       }
-//     } else {
-//       res.status(404).json({ message: "Product not found" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+// API
+// http://localhost:1000/api/products/delete/642d5f6cf9b48df64306a997
+//  
