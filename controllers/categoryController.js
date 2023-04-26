@@ -87,7 +87,7 @@ export const deleteCategory = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-
+// API http://localhost:1000/api/categories/delete/642fc8a2215f8652c856cf18
 
 
 
