@@ -90,3 +90,4 @@ export const deleteColor = asyncHandler(async (req, res) => {
 });
 // API http://localhost:1000/api/colors/delete/6447a565439b586e704e3afb
   
+//  preview 

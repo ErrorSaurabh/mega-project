@@ -59,4 +59,15 @@ const productSchema = new Schema({
 }
 );
 
+// Define a virtual property for average rating
+productSchema.virtual('averageRating').get(function() {
+  if (this.reviews.length === 0) {
+    return 0;
+  }
+  const sum = this.reviews.reduce((total, review) => {
+    return total + review.rating;
+  }, 0);
+  return Math.round((sum / this.reviews.length) * 10) / 10; // round to one decimal point
+});
+
 export const Product = mongoose.model("Product", productSchema);

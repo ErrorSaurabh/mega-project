@@ -7,6 +7,7 @@ import productRoutes from "./Routes/productRoutes.js";
 import categoryRoutes from "./Routes/categoryRoutes.js";
 import brandRoutes from "./Routes/brandRoutes.js";
 import colorsRoutes from "./Routes/colorsRoutes.js";
+import reviewRoutes from "./Routes/reviewRoutes.js";
 import { errorHandler } from "./middleware/ErrorHandler.js";
 
 
@@ -27,7 +28,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/brand", brandRoutes);
-app.use("/api/colors", colorsRoutes)
+app.use("/api/colors", colorsRoutes);
+app.use("/api/review", reviewRoutes)
 
 // Error handling middleware
 app.use(errorHandler);
