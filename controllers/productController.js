@@ -84,13 +84,14 @@ export const getProducts = asyncHandler(async (req, res) => {
 // Get a product by id
 export const getProductById = asyncHandler(async (req, res) => {
 
-const product = await Product.findById(req.params.id)
-  if (product) {
-    res.status(200).json(product);
-  } else {
-    res.status(404).json({ message: "Product not found" });
-  }
-}); 
+  const product = await Product.findById(req.params.id)
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  });
+
 // API
 // http://localhost:1000/api/products/read/64352e7d3ac89b229cb4d7e5
 
