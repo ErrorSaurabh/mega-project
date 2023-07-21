@@ -20,10 +20,10 @@ router.get("/read", getProducts);
 router.get("/read/:id", getProductById);
 
 // UPDATE: PUT request to update a product by ID
-router.put("/update/:id", updateProduct);
+router.put("/update/:id", isLogin, updateProduct);
 
 // DELETE: DELETE request to delete a product by ID
-router.delete("/delete/:id", deleteProduct);
+router.delete("/delete/:id", isLogin, deleteProduct);
 
 export default router;
 

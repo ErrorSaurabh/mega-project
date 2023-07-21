@@ -4,15 +4,13 @@ const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
   name:{
-    type: String
-  },
-
-  price: {
-    type:Number
+    type: String,
+    required: true
   },
 
   description: {
-    type:String
+    type:String,
+    required: true
   },
 
   brand: {
@@ -23,7 +21,11 @@ const productSchema = new Schema({
     type:String
   },
 
-  sizes: [String],
+  sizes: {
+    type:[String],  // array of strings to store the different size available for this item
+    enum: ["s", "M", "L", "XL", "XXL"],
+    required: true
+  },
 
   color: {
     type:String
@@ -43,10 +45,6 @@ const productSchema = new Schema({
     ref: "review"
   }],
   
-// reviews: { 
-//   type:String
-// },
-
   price: {
     type:Number
   },
@@ -64,11 +62,16 @@ const productSchema = new Schema({
 }
 );
 
+// Virtuals
+
+// Qty Left
 productSchema.virtual("totalReviews").get(function(){
   const product = this;
   return product?.reviews?.length;
 })
 // Define a virtual property for average rating
+
+// Avg ratting
 productSchema.virtual('averageRating').get(function() {
 let rattingsTotal  = 0;
 const product = this;
@@ -80,4 +83,5 @@ const avgRating = Number(rattingsTotal / product?.reviews?.length).toFixed(1);
 return avgRating;
 });
 
+// complete Schema to model
 export const Product = mongoose.model("Product", productSchema);

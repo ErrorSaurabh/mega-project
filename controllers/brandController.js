@@ -1,32 +1,33 @@
+
 // Import the Brand model from the brand.js module
 import { Brand } from "../model/Brand.js";
 import asyncHandler from "express-async-handler";
 // Create a new brand
-export const createBrand = async (req, res) => {
-  try {
-    // Extract the name, user, and image properties from the request object
-    const { name, user, products } = req.body;
+export const createBrand = asyncHandler(async (req, res) => {
+  const { name } = req.body;
 
-    // Create a new brand object using the extracted properties
-    const newBrand = new Brand({
-      name,
-      user,
-      products,
-    });
-
-    // Save the brand object to the database
-    const savedBrand = await newBrand.save();
-
-    // Send a response with the saved brand object
-    res.status(201).json(savedBrand);
-  } catch (error) {
-    // Handle any errors that occur during the creation of the brand
-    res.status(500).json({ message: error.message });
+  // Check if the brand already exists
+  const brandExists = await Brand.findOne({ name });
+  if (brandExists) {
+    throw new Error('Brand Already Exists');
   }
-};
+
+  // Create the brand
+  const brand = await Brand.create({
+    name: name.toLowerCase(),
+    user: req.useAuthId,
+  });
+
+  res.json({
+    status: 'success',
+    message: "Brand Created Successfully",
+    data: brand,
+  });
+});
 
 export default createBrand;
 
+// get a brand
 export const getBrandById = async (req, res) => {
   try {
     const brand = await Brand.findById(req.params?.id);

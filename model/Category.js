@@ -13,7 +13,11 @@ const categorySchema = new Schema({
     ref: "User",
     required: true
   },
-  image: String,
+  image: {
+    type: String,
+    default: "http://via.placeholder.com/150",
+    required: true,
+},
   products: [{
     type: Schema.Types.ObjectId,
     ref: "Product"
